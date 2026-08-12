@@ -1,4 +1,5 @@
 # SG-RIFE for ComfyUI
+https://arxiv.org/abs/2512.18241
 
 Standalone ComfyUI integration for the SG-RIFE / FlowNet-DINO frame-interpolation model extracted from my local video pipeline. The repository contains the inference architecture and ComfyUI integration.
 
