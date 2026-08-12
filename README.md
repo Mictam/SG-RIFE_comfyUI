@@ -1,18 +1,60 @@
 # SG-RIFE for ComfyUI
-https://arxiv.org/abs/2512.18241
+
+**Semantic-Guided RIFE frame interpolation with a DINOv3 backbone for ComfyUI.**
+
+[Paper: *SG-RIFE: Semantic-Guided Real-Time Intermediate Flow Estimation with Diffusion-Competitive Perceptual Quality*](https://arxiv.org/abs/2512.18241)
 
 Standalone ComfyUI integration for the SG-RIFE / FlowNet-DINO frame-interpolation model extracted from my local video pipeline. The repository contains the inference architecture and ComfyUI integration.
 
-## Features
+## Highlights
 
-- Separate model loader and interpolation nodes
-- ComfyUI model loading/offloading through `CoreModelPatcher`
-- FP32 and BF16 execution
-- TTA support
-- Multipliers from 2× through 8×
-- Correct source-frame retention and chronological ordering
+- Dedicated SG-RIFE loader and interpolation nodes
+- FP32 reference mode and BF16 execution mode
+- ComfyUI-native model loading, VRAM management, and offloading
+- Test-time augmentation (TTA)
+- 2× through 8× interpolation
+- Correct scheduling for the checkpoint’s midpoint-only interpolation behaviour
 - Automatic or manually selected output FPS in the example workflow
-- No model downloads, telemetry, or network requests
+
+## Benchmark results
+
+
+All quality metrics are calculated only on  intermediate frames; 
+- Higher PSNR and SSIM are better.
+- Lower LPIPS is better.
+- Synth FPS measures interpolation only; it excludes model loading, warm-up, decoding, quality scoring, preview, and encoding.
+
+Results are specific to the evaluated clips, resolution, hardware, and runtime configuration. They are provided as reference measurements rather than universal performance claims.
+
+### 2× interpolation — 2560 × 1440
+
+| Method | PSNR ↑ | SSIM ↑ | LPIPS ↓ | FPS ↑ |
+| --- | ---: | ---: | ---: | ---: |
+| SG-RIFE (FlowNet-DINO) | **38.9102 dB** | **0.983131** | **0.013067** | 0.581 |
+| RIFE 4.26 | 38.3679 dB | 0.980663 | 0.014550 | **2.960** |
+
+### 2× interpolation — 1280 × 720
+
+| Method | PSNR ↑ | SSIM ↑ | LPIPS ↓ | FPS ↑ |
+| --- | ---: | ---: | ---: | ---: |
+| SG-RIFE (FlowNet-DINO) | **42.4162 dB** | **0.989753** | **0.006685** | 5.071 |
+| RIFE 4.26 | 39.9550 dB | 0.983548 | 0.007972 | **38.087** |
+
+### 3× interpolation - 1280 x 720
+
+| Method | PSNR ↑ | SSIM ↑ | LPIPS ↓ | FPS ↑ |
+| --- | ---: | ---: | ---: | ---: |
+| SG-RIFE (FlowNet-DINO) | **36.5544 dB** | **0.967801** | 0.034863 | 3.786 |
+| RIFE 4.26 | 36.2611 dB | 0.965302 | **0.026568** | **38.471** |
+
+### 4× interpolation - 1280 x 720
+
+36 synthesized frames scored; source endpoints excluded.
+
+| Method | PSNR ↑ | SSIM ↑ | LPIPS ↓ | FPS ↑ |
+| --- | ---: | ---: | ---: | ---: |
+| SG-RIFE (FlowNet-DINO) | 34.3005 dB | **0.954079** | 0.033502 | 5.501 |
+| RIFE 4.26 | **34.4418 dB** | 0.953859 | **0.032446** | **37.490** |
 
 ## Nodes
 
