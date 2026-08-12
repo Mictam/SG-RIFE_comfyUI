@@ -1,0 +1,19 @@
+SG-RIFE ComfyUI integration
+
+The architecture incorporates ideas from:
+
+- SG-RIFE: Semantic-Guided Real-Time Intermediate Flow Estimation with Diffusion-Competitive Perceptual Quality
+  Pan Ben Wong, Chengli Wu, Hanyue Lu
+  https://arxiv.org/abs/2512.18241
+
+- RIFE: Real-Time Intermediate Flow Estimation for Video Frame Interpolation
+  Zhewei Huang, Tianyuan Zhang, Wen Heng, Boxin Shi, Shuchang Zhou
+  https://arxiv.org/abs/2011.06294
+
+- Dino U-Net: Exploiting High-Fidelity Dense Features from Foundation Models for
+  Medical Image Segmentation
+  https://github.com/yifangao112/DinoUNet
+
+DINOv3 source code and weights are not included. Users must obtain them separately
+and comply with Meta's DINOv3 License Agreement. SG-RIFE and DINO checkpoint weights
+are also not included in this repository.

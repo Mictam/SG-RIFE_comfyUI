@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Model repositories and checkpoints are intentionally not distributed.
+models/dinov3_repo/
+models/**/*.pth
+models/**/*.pt
+models/**/*.pkl
+models/**/*.ckpt
+models/**/*.safetensors
+
+# Generated media
+input/
+output/
+temp/
+
+# IDE files
+.idea/
+*.iml

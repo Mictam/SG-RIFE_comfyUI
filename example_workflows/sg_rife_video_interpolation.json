@@ -1,0 +1,721 @@
+{
+  "id": "902e023b-dd7e-421e-8967-346302a4772e",
+  "revision": 0,
+  "last_node_id": 12,
+  "last_link_id": 14,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadVideo",
+      "pos": [
+        0,
+        100
+      ],
+      "size": [
+        340,
+        550
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": [
+        "input.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "GetVideoComponents",
+      "pos": [
+        410,
+        100
+      ],
+      "size": [
+        250,
+        140
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetVideoComponents",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      }
+    },
+    {
+      "id": 3,
+      "type": "SGRIFELoader",
+      "pos": [
+        410,
+        330
+      ],
+      "size": [
+        270,
+        80
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "precision",
+          "type": "COMBO",
+          "widget": {
+            "name": "precision"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sg_rife",
+          "type": "SG_RIFE_MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SGRIFELoader"
+      },
+      "widgets_values": [
+        "fp32"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "PrimitiveInt",
+      "pos": [
+        410,
+        470
+      ],
+      "size": [
+        270,
+        80
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            4,
+            5
+          ]
+        }
+      ],
+      "title": "Interpolation Multiplier (2x-8x, including 3x and 5x)",
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": [
+        3,
+        "fixed"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "SGRIFEInterpolate",
+      "pos": [
+        760,
+        100
+      ],
+      "size": [
+        330,
+        230
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "sg_rife",
+          "type": "SG_RIFE_MODEL",
+          "link": 2
+        },
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "name": "multiplier",
+          "type": "INT",
+          "link": 4
+        },
+        {
+          "name": "scale",
+          "type": "FLOAT",
+          "widget": {
+            "name": "scale"
+          },
+          "link": null
+        },
+        {
+          "name": "tta",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "tta"
+          },
+          "link": null
+        },
+        {
+          "name": "include_last",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "include_last"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SGRIFEInterpolate"
+      },
+      "widgets_values": [
+        2,
+        1.0,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ComfyMathExpression",
+      "pos": [
+        760,
+        410
+      ],
+      "size": [
+        330,
+        190
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "a",
+          "name": "values.a",
+          "type": "FLOAT,INT",
+          "link": 6
+        },
+        {
+          "label": "b",
+          "name": "values.b",
+          "type": "FLOAT,INT",
+          "link": 5
+        },
+        {
+          "label": "c",
+          "name": "values.c",
+          "type": "FLOAT,INT",
+          "shape": 7,
+          "link": null
+        },
+        {
+          "name": "expression",
+          "type": "STRING",
+          "widget": {
+            "name": "expression"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            9
+          ]
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "BOOL",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfyMathExpression",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": [
+        "a * b"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CreateVideo",
+      "pos": [
+        1190,
+        100
+      ],
+      "size": [
+        290,
+        160
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 7
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "shape": 7,
+          "link": 8
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "widget": {
+            "name": "fps"
+          },
+          "link": 14
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "shape": 7,
+          "widget": {
+            "name": "bit_depth"
+          },
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CreateVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": [
+        30,
+        8
+      ]
+    },
+    {
+      "id": 8,
+      "type": "SaveVideo",
+      "pos": [
+        1570,
+        100
+      ],
+      "size": [
+        390,
+        130
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": [
+        "video/SG_RIFE_interpolated",
+        "auto",
+        "auto"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        1190,
+        650
+      ],
+      "size": [
+        500,
+        230
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "SG-RIFE settings",
+      "properties": {},
+      "widgets_values": [
+        "## SG-RIFE interpolation\n\n- Default interpolation: **3x**, `scale=1.0`, TTA enabled.\n- Supported multipliers: **2x through 8x**, including **3x and 5x**.\n- Automatic FPS uses source FPS multiplied by the interpolation value.\n- Enable **Use manual final FPS** to select an exact output rate instead.\n- Keep `include_last` enabled for a complete video.\n- `fp32` matches the reference pipeline; try `bf16` after validating output quality."
+      ],
+      "color": "#223",
+      "bgcolor": "#112"
+    },
+    {
+      "id": 10,
+      "type": "PrimitiveFloat",
+      "pos": [
+        760,
+        670
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "FLOAT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "title": "Manual Final Video FPS",
+      "properties": {
+        "Node name for S&R": "PrimitiveFloat",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": [
+        72.0,
+        "fixed"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "PrimitiveBoolean",
+      "pos": [
+        760,
+        790
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "title": "Use Manual Final FPS",
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 12,
+      "type": "ComfySwitchNode",
+      "pos": [
+        1110,
+        470
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "FLOAT",
+          "link": 9
+        },
+        {
+          "name": "on_true",
+          "type": "FLOAT",
+          "link": 12
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "switch"
+          },
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "FLOAT",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "title": "Choose Automatic or Manual Final FPS",
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode",
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": [
+        false
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "VIDEO"
+    ],
+    [
+      2,
+      3,
+      0,
+      5,
+      0,
+      "SG_RIFE_MODEL"
+    ],
+    [
+      3,
+      2,
+      0,
+      5,
+      1,
+      "IMAGE"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      2,
+      "INT"
+    ],
+    [
+      5,
+      4,
+      0,
+      6,
+      1,
+      "INT"
+    ],
+    [
+      6,
+      2,
+      2,
+      6,
+      0,
+      "FLOAT"
+    ],
+    [
+      7,
+      5,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ],
+    [
+      8,
+      2,
+      1,
+      7,
+      1,
+      "AUDIO"
+    ],
+    [
+      9,
+      6,
+      0,
+      12,
+      0,
+      "FLOAT"
+    ],
+    [
+      10,
+      2,
+      3,
+      7,
+      3,
+      "INT"
+    ],
+    [
+      11,
+      7,
+      0,
+      8,
+      0,
+      "VIDEO"
+    ],
+    [
+      12,
+      10,
+      0,
+      12,
+      1,
+      "FLOAT"
+    ],
+    [
+      13,
+      11,
+      0,
+      12,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      14,
+      12,
+      0,
+      7,
+      2,
+      "FLOAT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8,
+      "offset": [
+        80,
+        180
+      ]
+    }
+  },
+  "version": 0.4
+}

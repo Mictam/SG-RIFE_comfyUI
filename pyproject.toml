@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sg-rife"
+version = "0.1.0"
+description = "SG-RIFE frame interpolation nodes for ComfyUI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [
+    { name = "mictam" },
+]
+dependencies = [
+    "torch",
+    "torchvision",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.urls]
+Repository = "https://github.com/mictam/SG-RIFE_comfyUI"
+"Bug Tracker" = "https://github.com/mictam/SG-RIFE_comfyUI/issues"
+
+[tool.comfy]
+PublisherId = "mictam"
+DisplayName = "SG-RIFE"
+
+# Build the repository root as the installable ComfyUI package, while keeping
+# sg_rife as its internal implementation subpackage. This makes wheels include
+# the root ComfyUI entry point (\"__init__.py\" + \"nodes.py\") instead of only
+# shipping the implementation modules.
+[tool.setuptools]
+packages = ["sg_rife_comfyui", "sg_rife_comfyui.sg_rife"]
+package-dir = { "sg_rife_comfyui" = ".", "sg_rife_comfyui.sg_rife" = "sg_rife" }
+include-package-data = true
+
+[tool.setuptools.package-data]
+sg_rife_comfyui = [
+    "example_workflows/*.json",
+    "models/README.md",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
