@@ -49,8 +49,6 @@ Results are specific to the evaluated clips, resolution, hardware, and runtime c
 
 ### 4× interpolation - 1280 x 720
 
-36 synthesized frames scored; source endpoints excluded.
-
 | Method | PSNR ↑ | SSIM ↑ | LPIPS ↓ | FPS ↑ |
 | --- | ---: | ---: | ---: | ---: |
 | SG-RIFE (FlowNet-DINO) | 34.3005 dB | **0.954079** | 0.033502 | 5.501 |
