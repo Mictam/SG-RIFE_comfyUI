@@ -2,9 +2,9 @@
 
 **Semantic-Guided RIFE frame interpolation with a DINOv3 backbone for ComfyUI.**
 
-[Paper: *SG-RIFE: Semantic-Guided Real-Time Intermediate Flow Estimation with Diffusion-Competitive Perceptual Quality*](https://arxiv.org/abs/2512.18241)
+[Based on Paper: *SG-RIFE: Semantic-Guided Real-Time Intermediate Flow Estimation with Diffusion-Competitive Perceptual Quality*](https://arxiv.org/abs/2512.18241)
 
-Standalone ComfyUI integration for the SG-RIFE / FlowNet-DINO frame-interpolation model extracted from my local video pipeline. The repository contains the inference architecture and ComfyUI integration.
+Standalone ComfyUI integration for the SG-RIFE / FlowNet-DINO frame-interpolation model extracted from my local video processing pipeline. The repository contains the inference architecture and ComfyUI integration, packaged primarily for accessibility and experimentation rather than maximum throughput.
 
 ## Highlights
 
